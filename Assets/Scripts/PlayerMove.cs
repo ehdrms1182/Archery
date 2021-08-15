@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Rigidbody rigid;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    private float moveSpeed = 1;
+
+    private void Awake()
     {
-        
+        rigid = GetComponent<Rigidbody>();
+    }
+    private void Update()
+    {
+        Move();
+    }
+    void Move()
+    {
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        Vector3 moveHorizontal = transform.right * h;
+        Vector3 moveVertical = transform.forward * v;
+
+        Vector3 velocity = (moveHorizontal + moveVertical).normalized * moveSpeed;
+
+        rigid.MovePosition(transform.position + velocity * Time.deltaTime);
     }
 }

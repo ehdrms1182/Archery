@@ -11,18 +11,21 @@ public class CameraControl : MonoBehaviour
     public float height = 50.0f;
     public float dampRotate = 0.0f;
 
+    public bool isZoom = false;
+
     private void Awake()
     {
         camPos = GetComponent<Transform>();
-        
     }
     
     void LateUpdate()
     {
-        
+        Zoom();
+        Rotate();
     }
     private void Zoom()
     {
+        isZoom = true;
         //°íÄ¥ ÄÚµå
         Camera camera = Camera.main;
         float zoomSpeed = 10f;
