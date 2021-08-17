@@ -21,7 +21,7 @@ public class CameraControl : MonoBehaviour
     void LateUpdate()
     {
         Zoom();
-        Rotate();
+        CameraRotate();
     }
     private void Zoom()
     {
@@ -35,19 +35,6 @@ public class CameraControl : MonoBehaviour
             camera.fieldOfView += distance;
         }
     }
-    private void Rotate()
-    {
-        float rotateSpeed = 10f;
-        if (Input.GetMouseButton(1))
-        {
-            Vector3 rotate = transform.rotation.eulerAngles; // 현재 카메라의 각도를 Vector3로 반환
-            rotate.y += Input.GetAxis("Mouse X") * rotateSpeed; // 마우스 X 위치 * 회전 스피드
-            rotate.x += -1 * Input.GetAxis("Mouse Y") * rotateSpeed; // 마우스 Y 위치 * 회전 스피드
-            Quaternion q = Quaternion.Euler(rotate); // Quaternion으로 변환
-            q.z = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, q, 2f); // 자연스럽게 회전
-        }
-    }
     private void CameraRotate()
     {
         float currentYAngle = Mathf.LerpAngle(camPos.eulerAngles.y, target.eulerAngles.y, dampRotate * Time.deltaTime);
@@ -56,6 +43,19 @@ public class CameraControl : MonoBehaviour
 
         camPos.position = target.position - (rotate * Vector3.forward * distance) + (Vector3.up * height);
         camPos.LookAt(target);
-        //카메라 회전, 캐릭터를 비스듬한 각도로 바라보는거 추가
+       
+        float rotateSpeed = 10f;
+
+        //코드 에러
+        if (Input.GetMouseButton(1))
+        {
+            Vector3 rotation = transform.rotation.eulerAngles; // 현재 카메라의 각도를 Vector3로 반환
+            rotation.y += Input.GetAxis("Mouse X") * rotateSpeed; // 마우스 X 위치 * 회전 스피드
+            rotation.x += -1 * Input.GetAxis("Mouse Y") * rotateSpeed; // 마우스 Y 위치 * 회전 스피드
+            Quaternion q = Quaternion.Euler(rotation); // Quaternion으로 변환
+            q.z = 0;
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, 2f); // 자연스럽게 회전
+        }
+        //캐릭터를 비스듬한 각도로 바라보는거 추가
     }
 }

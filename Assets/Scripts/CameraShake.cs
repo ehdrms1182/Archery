@@ -8,11 +8,12 @@ public class CameraShake : MonoBehaviour
     Vector3 offset = Vector3.zero;
     Quaternion originRotate;
 
+    Breath breathCheck;
+
     private void Awake()
     {
         originRotate = transform.rotation;
     }
-
     IEnumerator ShakeCoroutine()
     {
         Vector3 originEuler = transform.eulerAngles;
@@ -45,7 +46,7 @@ public class CameraShake : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (breathCheck.BreathTimer.value == 0f)
         {
             StartCoroutine(ShakeCoroutine());
         }

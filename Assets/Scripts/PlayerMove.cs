@@ -6,8 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     private Rigidbody rigid;
 
-    [SerializeField]
-    private float moveSpeed = 1;
+    public float moveSpeed = 1;
 
     private void Awake()
     {

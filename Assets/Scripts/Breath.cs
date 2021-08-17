@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Breath : MonoBehaviour
 {
-    Slider BreathTimer;
+    public Slider BreathTimer;
     public bool canBreath = true;
 
     void Start()
@@ -30,10 +30,11 @@ public class Breath : MonoBehaviour
             {
                 canBreath = false;
                 //숨 회복하기 만들어야함
+                return;
             }
             else
             {
-                Debug.Log("Time is Zero.");
+                Debug.Log($"Time is {BreathTimer.value}");
             }
         }
     }
