@@ -15,14 +15,20 @@ public class LockOn : MonoBehaviour
             StartCoroutine(Aim());
         playerMove.moveSpeed = 0.2f;
     }
-    IEnumerator Aim()
-    {
-        yield return null;
-    }
     void LockEnd()
     {
         if (breathTime.canBreath == false)
             StopCoroutine(Aim());
         playerMove.moveSpeed = 1f;
+    }
+    IEnumerator Aim()
+    {
+        Debug.Log("Aiming");
+        yield return null;
+    }
+    private void Update()
+    {
+        LockStart();
+        LockEnd();
     }
 }

@@ -25,13 +25,16 @@ public class CameraControl : MonoBehaviour
     }
     private void Zoom()
     {
+        //성공
         isZoom = true;
-        //고칠 코드
+        
         Camera camera = Camera.main;
         float zoomSpeed = 10f;
         float distance = Input.GetAxis("Mouse ScrollWheel") * -1 * zoomSpeed;
+        
         if (distance != 0)
         {
+            Debug.Log("Zoom");
             camera.fieldOfView += distance;
         }
     }
@@ -46,9 +49,10 @@ public class CameraControl : MonoBehaviour
        
         float rotateSpeed = 10f;
 
-        //코드 에러
+        //코드 에러 (카메라 진동)
         if (Input.GetMouseButton(1))
         {
+            Debug.Log("우클릭 회전");
             Vector3 rotation = transform.rotation.eulerAngles; // 현재 카메라의 각도를 Vector3로 반환
             rotation.y += Input.GetAxis("Mouse X") * rotateSpeed; // 마우스 X 위치 * 회전 스피드
             rotation.x += -1 * Input.GetAxis("Mouse Y") * rotateSpeed; // 마우스 Y 위치 * 회전 스피드

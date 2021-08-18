@@ -8,7 +8,9 @@ public class Breath : MonoBehaviour
     public Slider BreathTimer;
     public bool canBreath = true;
 
-    void Start()
+    //슬라이더 지정 오류
+
+    void Awake()
     {
         BreathTimer = GetComponent<Slider>();
     }
@@ -19,6 +21,7 @@ public class Breath : MonoBehaviour
     }
     void BreathOn()
     {
+        Debug.Log($"Silder is {BreathTimer}"); //슬라이더 적용 체크 <- 게임 시작시 Silder가 none으로 바뀌는 버그
         if(Input.GetKeyDown(KeyCode.Q))
         {
             if (BreathTimer.value > 0.0f)
