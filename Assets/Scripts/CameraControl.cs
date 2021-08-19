@@ -45,11 +45,8 @@ public class CameraControl : MonoBehaviour
         Quaternion rotate = Quaternion.Euler(0, currentYAngle, 0);
 
         camPos.position = target.position - (rotate * Vector3.forward * distance) + (Vector3.up * height);
-        camPos.LookAt(target);
-       
-        float rotateSpeed = 10f;
 
-        //코드 에러 (카메라 진동)
+        float rotateSpeed = 10f;
         if (Input.GetMouseButton(1))
         {
             Debug.Log("우클릭 회전");
@@ -59,6 +56,11 @@ public class CameraControl : MonoBehaviour
             Quaternion q = Quaternion.Euler(rotation); // Quaternion으로 변환
             q.z = 0;
             transform.rotation = Quaternion.Slerp(transform.rotation, q, 2f); // 자연스럽게 회전
+        }
+
+        if(Input.GetMouseButtonUp(1))
+        {
+            //다시 카메라를 원위치시킴
         }
         //캐릭터를 비스듬한 각도로 바라보는거 추가
     }

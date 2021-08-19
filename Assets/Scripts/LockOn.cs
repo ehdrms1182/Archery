@@ -9,16 +9,24 @@ public class LockOn : MonoBehaviour
     Breath breathTime;
     PlayerMove playerMove;
 
+    bool isLock = false;
+
     void LockStart()
     {
         if (cameraControl.isZoom == true)
+        {
             StartCoroutine(Aim());
-        playerMove.moveSpeed = 0.2f;
+            isLock = true;
+        }
+            playerMove.moveSpeed = 0.2f;
     }
     void LockEnd()
     {
         if (breathTime.canBreath == false)
+        {
             StopCoroutine(Aim());
+            isLock = false;
+        }
         playerMove.moveSpeed = 1f;
     }
     IEnumerator Aim()
