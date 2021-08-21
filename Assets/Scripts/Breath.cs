@@ -14,7 +14,10 @@ public class Breath : MonoBehaviour
     {
         BreathTimer = GetComponent<Slider>();
     }
-
+    private void Start()
+    {
+        BreathTimer = FindObjectOfType<Slider>();
+    }
     void Update()
     {
         BreathOn();
