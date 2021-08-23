@@ -35,7 +35,7 @@ public class Breath : MonoBehaviour
             else if(BreathTimer.value == 0)
             {
                 canBreath = false;
-                //숨 회복하기 만들어야함
+                StartCoroutine(ReBreath());
                 return;
             }
             else
@@ -43,5 +43,10 @@ public class Breath : MonoBehaviour
                 Debug.Log($"Time is {BreathTimer.value}");
             }
         }
+    }
+    IEnumerator ReBreath()
+    {
+        BreathTimer.value += Time.deltaTime;
+        yield return null;
     }
 }

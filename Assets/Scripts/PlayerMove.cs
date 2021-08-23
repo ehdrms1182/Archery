@@ -34,8 +34,11 @@ public class PlayerMove : MonoBehaviour
         float rotationY = Input.GetAxisRaw("Mouse X");
         Vector3 characterRotationY = new Vector3(0f, rotationY, 0f) * moveSpeed;
 
-       
+        if (rotationY == 0)
+            return;
+        Quaternion q = Quaternion.LookRotation(characterRotationY);
 
-        rigid.MoveRotation(rigid.rotation * Quaternion.Euler(characterRotationY));
+        //rigid.MoveRotation(rigid.rotation * Quaternion.Euler(characterRotationY));
+        rigid.rotation = Quaternion.Slerp(rigid.rotation, q, moveSpeed * Time.deltaTime);
     }
 }

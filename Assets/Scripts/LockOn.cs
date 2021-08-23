@@ -18,7 +18,7 @@ public class LockOn : MonoBehaviour
             StartCoroutine(Aim());
             isLock = true;
         }
-            playerMove.moveSpeed = 0.2f;
+        playerMove.moveSpeed = 0.2f;
     }
     void LockEnd()
     {
@@ -32,6 +32,12 @@ public class LockOn : MonoBehaviour
     IEnumerator Aim()
     {
         Debug.Log("Aiming");
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Abs(10)))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+        }
+        
         yield return null;
     }
     private void Update()

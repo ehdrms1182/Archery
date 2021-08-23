@@ -6,7 +6,7 @@ public class CameraControl : MonoBehaviour
 {
     public GameObject target;
 
-    public Vector3 offset;
+    public Vector3 offset = new Vector3(0, 1, 1);
 
     public bool isZoom = false;
 
@@ -37,7 +37,7 @@ public class CameraControl : MonoBehaviour
         float zoomSpeed = 10f;
         float distance = Input.GetAxis("Mouse ScrollWheel") * -1 * zoomSpeed;
 
-        if (Input.GetMouseButtonDown(1))    //우클릭중일때
+        if (Input.GetMouseButton(1))    //우클릭중일때
         {
             if (distance != 0)
             {
@@ -45,12 +45,7 @@ public class CameraControl : MonoBehaviour
                 {
                     Debug.Log("Zoom");
                     cam.fieldOfView += distance;
-
-                }
-                if (cam.fieldOfView < 30)
-                {
-                    Debug.Log("Too many");
-                    cam.fieldOfView = 60;
+                    //cam.fieldOfView = distance + Mathf.Max(30, distance); //고쳐야함
                 }
             }
         }
