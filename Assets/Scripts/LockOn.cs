@@ -8,7 +8,7 @@ public class LockOn : MonoBehaviour
     CameraControl cameraControl;
     Breath breathTime;
     PlayerMove playerMove;
-
+    
     bool isLock = false;
 
     void LockStart()

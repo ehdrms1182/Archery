@@ -12,10 +12,10 @@ public class PlayerMove : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
-        //CharacterRotation();
+        CharacterRotation();
     }
     void Move()
     {
@@ -28,11 +28,14 @@ public class PlayerMove : MonoBehaviour
 
         rigid.MovePosition(transform.position + velocity * Time.deltaTime);
     }
-    //private void CharacterRotation()
-    //{
-    //    // 좌우 캐릭터 회전
-    //    float rotationY = Input.GetAxisRaw("Mouse X");
-    //    Vector3 characterRotationY = new Vector3(0f, rotationY, 0f) * moveSpeed;
-    //    rigid.MoveRotation(rigid.rotation * Quaternion.Euler(characterRotationY));
-    //}
+    private void CharacterRotation()
+    {
+        // 좌우 캐릭터 회전
+        float rotationY = Input.GetAxisRaw("Mouse X");
+        Vector3 characterRotationY = new Vector3(0f, rotationY, 0f) * moveSpeed;
+
+       
+
+        rigid.MoveRotation(rigid.rotation * Quaternion.Euler(characterRotationY));
+    }
 }
