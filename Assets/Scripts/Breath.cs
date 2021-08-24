@@ -8,8 +8,6 @@ public class Breath : MonoBehaviour
     public Slider BreathTimer;
     public bool canBreath = true;
 
-    //슬라이더 지정 오류
-
     void Awake()
     {
         BreathTimer = GetComponent<Slider>();
@@ -25,28 +23,48 @@ public class Breath : MonoBehaviour
     void BreathOn()
     {
         Debug.Log($"Silder is {BreathTimer}"); //슬라이더 적용 체크 <- 게임 시작시 Silder가 none으로 바뀌는 버그
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) && canBreath == true)
         {
-            if (BreathTimer.value > 0.0f)
+            if (BreathTimer.value > 0)
             {
                 // 시간이 변경한 만큼 slider Value 변경을 합니다.
                 BreathTimer.value -= Time.deltaTime;
-            }
-            else if(BreathTimer.value == 0)
-            {
-                canBreath = false;
-                StartCoroutine(ReBreath());
-                return;
+                Debug.Log("Stop Breathing");
             }
             else
             {
+                
                 Debug.Log($"Time is {BreathTimer.value}");
+                if (BreathTimer.value == BreathTimer.minValue)
+                {
+                    Debug.Log("End");
+                    canBreath = false;
+                }
+                return;
             }
         }
+        else
+        {
+            if (BreathTimer.value == BreathTimer.maxValue)
+                StopCoroutine(ReBreath());
+            else
+            {
+                Debug.Log("ReBreathing...");
+                StartCoroutine(ReBreath());
+            }
+
+        }
     }
+    
     IEnumerator ReBreath()
     {
-        BreathTimer.value += Time.deltaTime;
+        if (BreathTimer.value != BreathTimer.maxValue)
+            BreathTimer.value += Time.deltaTime * 0.7f;
+        if (BreathTimer.value == BreathTimer.maxValue)
+        {
+            Debug.Log("Full");
+            yield return canBreath = true;
+        }
         yield return null;
     }
 }

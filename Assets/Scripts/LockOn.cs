@@ -9,6 +9,9 @@ public class LockOn : MonoBehaviour
     Breath breathTime;
     PlayerMove playerMove;
     
+    public GameObject arrowPrefab;
+
+
     bool isLock = false;
 
     void LockStart()
@@ -32,11 +35,7 @@ public class LockOn : MonoBehaviour
     IEnumerator Aim()
     {
         Debug.Log("Aiming");
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Abs(10)))
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-        }
+        isLock = true;
         
         yield return null;
     }
@@ -44,5 +43,17 @@ public class LockOn : MonoBehaviour
     {
         LockStart();
         LockEnd();
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Abs(10)))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+        }
+    }
+
+    void Shot()
+    {
+        GameObject instance = Instantiate(arrowPrefab);
+        
     }
 }

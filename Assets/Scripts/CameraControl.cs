@@ -6,7 +6,7 @@ public class CameraControl : MonoBehaviour
 {
     public GameObject target;
 
-    public Vector3 offset = new Vector3(0, 1, 1);
+    public Vector3 offset;
 
     public bool isZoom = false;
 
@@ -39,14 +39,12 @@ public class CameraControl : MonoBehaviour
 
         if (Input.GetMouseButton(1))    //우클릭중일때
         {
+            distance = Mathf.Clamp(distance, 30, 60);
             if (distance != 0)
             {
-                if (distance < 0)
-                {
-                    Debug.Log("Zoom");
-                    cam.fieldOfView += distance;
-                    //cam.fieldOfView = distance + Mathf.Max(30, distance); //고쳐야함
-                }
+                Debug.Log("Zoom");
+                //cam.fieldOfView += distance;
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, distance, Time.deltaTime * 2.7f);
             }
         }
         if(Input.GetMouseButtonUp(1))
@@ -69,6 +67,7 @@ public class CameraControl : MonoBehaviour
         // 위아래 회전량을 더해주지만 -45도 ~ 80도로 제한 (-45:하늘방향, 80:바닥방향)
         // Clamp 는 값의 범위를 제한하는 함수
         cameraRotationX = Mathf.Clamp(cameraRotationX + xRotateSize, -45, 80);
+        //카메라 위로 회전시,캐릭터도 같이 움직여버림
 
         // 카메라 회전량을 카메라에 반영(X, Y축만 회전)
         transform.eulerAngles = new Vector3(cameraRotationX, cameraRotationY, 0);
