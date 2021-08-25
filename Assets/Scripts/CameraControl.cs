@@ -51,11 +51,12 @@ public class CameraControl : MonoBehaviour
         {
             Debug.Log("ZoomOut");
             cam.fieldOfView = 60;
+            //Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, Time.deltaTime * 2.7f);
         }
     }
     private void CameraRotation()
     {
-        float rotateSpeed = 10f;
+        float rotateSpeed = 7f;
         // 좌우로 움직인 마우스의 이동량 * 속도에 따라 카메라가 좌우로 회전할 양 계산
         float yRotateSize = Input.GetAxis("Mouse X") * rotateSpeed;
         // 현재 y축 회전값에 더한 새로운 회전각도 계산

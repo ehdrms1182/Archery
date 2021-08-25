@@ -23,14 +23,23 @@ public class CameraShake : MonoBehaviour
             float rotateY = Random.Range(-offset.y, offset.y);
             float rotateZ = Random.Range(-offset.z, offset.z);
 
+            float shakeSize = 1;
             Vector3 randomRotate = originEuler + new Vector3(rotateX, rotateY, rotateZ);
             Quaternion rotation = Quaternion.Euler(randomRotate);
 
             while (Quaternion.Angle(transform.rotation, rotation) > 0.1f)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, force * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, force * shakeSize *Time.deltaTime);
+                if (breathCheck.canBreath == true)
+                {
+                    shakeSize -= Time.deltaTime;
+                    //점차 감소시킨다
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, force * shakeSize * Time.deltaTime);
+                    yield return null;
+                }
                 yield return null;
             }
+
             yield return null;
         }
     }

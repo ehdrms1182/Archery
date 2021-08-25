@@ -36,7 +36,7 @@ public class LockOn : MonoBehaviour
     {
         Debug.Log("Aiming");
         isLock = true;
-        
+        //조준선 표시 기능
         yield return null;
     }
     private void Update()
