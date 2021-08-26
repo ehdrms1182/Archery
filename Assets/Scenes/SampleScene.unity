@@ -342,8 +342,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ee02a479a70014d9176dd2c9aa9cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraControl: {fileID: 963194229}
+  breathTime: {fileID: 1691803139}
+  playerMove: {fileID: 1691803138}
   arrowPrefab: {fileID: 6289558300147988323, guid: a2b44aaffd319294baf5296e6d8da511, type: 3}
   arrowPosition: {fileID: 494661576}
+  isLock: 0
 --- !u!1 &505328936
 GameObject:
   m_ObjectHideFlags: 0
