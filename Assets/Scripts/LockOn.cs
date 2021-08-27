@@ -41,7 +41,7 @@ public class LockOn : MonoBehaviour
     void LockStart()
     {
         
-        if (cameraControl.isZoom == true)//¿¡·¯
+        if (cameraControl.isZoom == true)
         {
             StartCoroutine(Aim());
             isLock = true;
@@ -80,7 +80,7 @@ public class LockOn : MonoBehaviour
     IEnumerator ShotArrow()
     {
         Instantiate(arrowPrefab, transform.position, transform.rotation);
-        arrowPosition.Translate(Vector3.forward * 1f);
+        arrowPosition.Translate(Vector3.forward * 4f,Space.World);
 
         yield return new WaitForSecondsRealtime(5f);
     }
