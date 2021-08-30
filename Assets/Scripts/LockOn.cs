@@ -19,14 +19,7 @@ public class LockOn : MonoBehaviour
 
     public bool isLock = false;
 
-
-    private void Awake()
-    {
-        //cameraControl.isZoom = false;
-        //breathTime.canBreath = false;
-    }
-
-    private void Update()
+    private void FixedUpdate()
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
@@ -79,9 +72,9 @@ public class LockOn : MonoBehaviour
     }
     IEnumerator ShotArrow()
     {
+        Vector3 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - arrowPosition.transform.position);
         Instantiate(arrowPrefab, transform.position, transform.rotation);
-        arrowPosition.Translate(Vector3.forward * 4f,Space.World);
-
+        arrowPosition.Translate(dir.normalized * 4f * Time.deltaTime);
         yield return new WaitForSecondsRealtime(5f);
     }
 }

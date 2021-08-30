@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     private Rigidbody rigid;
     public GameObject player;
+    public float rotateX = 45f;
 
     public float moveSpeed = 1;
 
@@ -33,7 +34,7 @@ public class PlayerMove : MonoBehaviour
     {
         //// 좌우 캐릭터 회전
         float rotationY = Input.GetAxisRaw("Mouse Y");
-        Vector3 characterRotationY = new Vector3(0f, rotationY, 0f) * moveSpeed;
+        Vector3 characterRotationY = new Vector3(rotateX, rotationY, -rotateX) * moveSpeed;
 
         //if (rotationY == 0)
         //    return;
