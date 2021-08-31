@@ -13,7 +13,9 @@ public class LockOn : MonoBehaviour
     Breath breathTime;
     [SerializeField]
     PlayerMove playerMove;
-    
+
+    WaitForSecondsRealtime waitForSecondsRealtime = new WaitForSecondsRealtime(5f);
+
     public GameObject arrowPrefab;
     public Transform arrowPosition;
 
@@ -75,6 +77,6 @@ public class LockOn : MonoBehaviour
         Vector3 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - arrowPosition.transform.position);
         Instantiate(arrowPrefab, transform.position, transform.rotation);
         arrowPosition.Translate(dir.normalized * 4f * Time.deltaTime);
-        yield return new WaitForSecondsRealtime(5f);
+        yield return waitForSecondsRealtime;
     }
 }
