@@ -4,43 +4,53 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Rigidbody rigid;
-    public GameObject player;
-    public float rotateX = 45f;
+    [Header("스피드 조정 변수")]
+    public float moveSpeed;
 
-    public float moveSpeed = 1;
+    // 민감도
+    [SerializeField]
+    private float lookSensitivity;
 
-    private void Awake()
+    private float applySpeed = 1;
+
+    // 카메라 한계
+    [SerializeField]
+    private float cameraRotationLimit;
+
+
+    private Rigidbody myRigid;
+
+    void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
+        myRigid = GetComponent<Rigidbody>();
     }
+
     private void FixedUpdate()
     {
         Move();
         CharacterRotation();
     }
-    void Move()
+    
+
+    // 움직임 실행
+    private void Move()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        Vector3 moveHorizontal = transform.right * h;
-        Vector3 moveVertical = transform.forward * v;
+        float moveDirX = Input.GetAxisRaw("Horizontal");
+        float moveDirZ = Input.GetAxisRaw("Vertical");
 
-        Vector3 velocity = (moveHorizontal + moveVertical).normalized * moveSpeed;
+        Vector3 moveHorizontal = transform.right * moveDirX;
+        Vector3 moveVertical = transform.forward * moveDirZ;
 
-        rigid.MovePosition(transform.position + velocity * Time.deltaTime);
+        Vector3 velocity = (moveHorizontal + moveVertical).normalized * applySpeed;
+
+        myRigid.MovePosition(transform.position + velocity * Time.deltaTime);
     }
+
+    // 좌우 캐릭터 회전
     private void CharacterRotation()
     {
-        //// 좌우 캐릭터 회전
-        float rotationY = Input.GetAxisRaw("Mouse Y");
-        Vector3 characterRotationY = new Vector3(rotateX, rotationY, -rotateX) * moveSpeed;
-
-        //if (rotationY == 0)
-        //    return;
-        //Quaternion q = Quaternion.LookRotation(characterRotationY);
-
-        rigid.MoveRotation(rigid.rotation * Quaternion.Euler(characterRotationY));
-        //rigid.rotation = Quaternion.Slerp(rigid.rotation, q, moveSpeed * Time.deltaTime);
+        float yRotation = Input.GetAxisRaw("Mouse X");
+        Vector3 characterRotationY = new Vector3(0f, yRotation, 0f) * lookSensitivity;
+        myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(characterRotationY));
     }
 }

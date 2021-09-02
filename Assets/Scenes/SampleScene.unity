@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 494661578}
   - component: {fileID: 494661577}
   - component: {fileID: 494661580}
+  - component: {fileID: 494661581}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
@@ -348,6 +349,22 @@ MonoBehaviour:
   arrowPrefab: {fileID: 6289558300147988323, guid: a2b44aaffd319294baf5296e6d8da511, type: 3}
   arrowPosition: {fileID: 494661576}
   isLock: 0
+--- !u!54 &494661581
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494661575}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &505328936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1199,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 100
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &1691803138
 MonoBehaviour:
@@ -1196,8 +1213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1b287b696001e49b88c0f62da36f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  moveSpeed: 1
+  moveSpeed: 4
+  lookSensitivity: 1
+  cameraRotationLimit: 45
 --- !u!114 &1691803139
 MonoBehaviour:
   m_ObjectHideFlags: 0
