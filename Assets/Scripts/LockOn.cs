@@ -13,8 +13,7 @@ public class LockOn : MonoBehaviour
     Breath breathTime;
     [SerializeField]
     PlayerMove playerMove;
-    
-    WaitForSecondsRealtime waitForSecondsRealtime = new WaitForSecondsRealtime(5f);
+    private WaitForSecondsRealtime waitForSecondsRealtime = new WaitForSecondsRealtime(5f);
 
     public GameObject arrowPrefab;
     public Transform arrowPosition;
@@ -60,6 +59,8 @@ public class LockOn : MonoBehaviour
 
         //조준선 표시 기능
         Shot();
+        //GameObject gameObject;
+        //gameObject.SetActive(true);
         yield return null;
     }
 

@@ -18,7 +18,7 @@ public class PlayerMove : MonoBehaviour
     private float cameraRotationLimit;
 
 
-    private Rigidbody myRigid;
+    public Rigidbody myRigid;
 
     void Awake()
     {
