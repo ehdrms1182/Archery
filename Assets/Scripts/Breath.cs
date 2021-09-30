@@ -7,7 +7,8 @@ public class Breath : MonoBehaviour
 {
     public Slider BreathTimer;
     public bool canBreath = true;
-
+    public bool breathStop = false;
+    
     void Awake()
     {
         BreathTimer = GetComponent<Slider>();
@@ -22,9 +23,10 @@ public class Breath : MonoBehaviour
     }
     void BreathOn()
     {
-        Debug.Log($"Silder is {BreathTimer}"); //슬라이더 적용 체크 <- 게임 시작시 Silder가 none으로 바뀌는 버그
+        Debug.Log($"Silder is {BreathTimer}");
         if (Input.GetKey(KeyCode.Q) && canBreath == true)
         {
+            breathStop = true;
             if (BreathTimer.value > 0)
             {
                 // 시간이 변경한 만큼 slider Value 변경을 합니다.
@@ -39,6 +41,7 @@ public class Breath : MonoBehaviour
                 {
                     Debug.Log("End");
                     canBreath = false;
+                    breathStop = false;
                 }
                 return;
             }
@@ -59,8 +62,8 @@ public class Breath : MonoBehaviour
     IEnumerator ReBreath()
     {
         if (BreathTimer.value != BreathTimer.maxValue)
-            BreathTimer.value += Time.deltaTime * 0.7f;
-        if (BreathTimer.value == BreathTimer.maxValue)
+            BreathTimer.value += Time.deltaTime * 0.37f;
+        if (BreathTimer.value == BreathTimer.maxValue && breathStop == false)
         {
             Debug.Log("Full");
             yield return canBreath = true;

@@ -9,6 +9,7 @@ public class CameraShake : MonoBehaviour
     Quaternion originRotate;
 
     Breath breathCheck;
+    LockOn lockCheck;
 
     private void Awake()
     {
@@ -23,20 +24,22 @@ public class CameraShake : MonoBehaviour
             float rotateY = Random.Range(-offset.y, offset.y);
             float rotateZ = Random.Range(-offset.z, offset.z);
 
-            float shakeSize = 1;
+            float shakeSize = 1f;
             Vector3 randomRotate = originEuler + new Vector3(rotateX, rotateY, rotateZ);
             Quaternion rotation = Quaternion.Euler(randomRotate);
 
             while (Quaternion.Angle(transform.rotation, rotation) > 0.1f)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, force * shakeSize *Time.deltaTime);
-                if (breathCheck.canBreath == true)
+                if (!(breathCheck.canBreath == true && lockCheck.isLock == true))
                 {
                     shakeSize -= Time.deltaTime;
                     //점차 감소시킨다
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, force * shakeSize * Time.deltaTime);
                     yield return null;
                 }
+                else
+                    StopCoroutine(ShakeCoroutine());
                 yield return null;
             }
 
@@ -55,7 +58,7 @@ public class CameraShake : MonoBehaviour
 
     void Update()
     {
-        if (breathCheck.BreathTimer.value == 0f)
+        if (lockCheck.isLock == true && breathCheck.breathStop == false)
         {
             StartCoroutine(ShakeCoroutine());
         }

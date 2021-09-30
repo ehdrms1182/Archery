@@ -12,8 +12,6 @@ public class CameraControl : MonoBehaviour
 
     [SerializeField]
     private Camera cam;
-    private float cameraRotationX = 0;
-    private float cameraRotationY = 0;
 
     private void Awake()
     {
@@ -54,20 +52,6 @@ public class CameraControl : MonoBehaviour
             //Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, Time.deltaTime * 2.7f);
         }
     }
-    //private void CameraRotation()
-    //{
-    //    float rotateSpeed = 7f;
-    //    // 좌우로 움직인 마우스의 이동량 * 속도에 따라 카메라가 좌우로 회전할 양 계산
-    //    float yRotateSize = Input.GetAxis("Mouse X") * rotateSpeed;
-    //    // 현재 y축 회전값에 더한 새로운 회전각도 계산
-    //    float yRotate = transform.eulerAngles.y + yRotateSize;
-
-    //    // 카메라 회전량을 카메라에 반영(X, Y축만 회전)
-    //    transform.eulerAngles = new Vector3(cameraRotationX, cameraRotationY, 0);
-
-    //    // 카메라를 더욱 더 부드럽게 움직이게 해줌(비선형 보간)
-    //    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.eulerAngles), 2f);
-    //}
 
     // 카메라 한계
     [SerializeField]
@@ -90,16 +74,30 @@ public class CameraControl : MonoBehaviour
         currentCameraRotationX -= cameraRotationX;
 
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
-
-
         cam.transform.localEulerAngles = new Vector3(currentCameraRotationX, currentCameraRotationY, 0f);
+        cam.transform.localEulerAngles = Vector3.Lerp(cam.transform.eulerAngles,cam.transform.localEulerAngles,0.5f);
     }
 
     private void CameraFollow()
     {
         Vector3 cameraPos = target.transform.position + offset;
-        Vector3 lerpPos = Vector3.Lerp(transform.position, cameraPos, 0.2f);
+        Vector3 lerpPos = Vector3.Lerp(transform.position, cameraPos, 0.5f);
         transform.position = lerpPos;
         //transform.LookAt(target.transform);
     }
+    //private void CameraRotation()
+    //{
+    //    float rotateSpeed = 7f;
+    //    // 좌우로 움직인 마우스의 이동량 * 속도에 따라 카메라가 좌우로 회전할 양 계산
+    //    float yRotateSize = Input.GetAxis("Mouse X") * rotateSpeed;
+    //    // 현재 y축 회전값에 더한 새로운 회전각도 계산
+    //    float yRotate = transform.eulerAngles.y + yRotateSize;
+
+    //    // 카메라 회전량을 카메라에 반영(X, Y축만 회전)
+    //    transform.eulerAngles = new Vector3(cameraRotationX, cameraRotationY, 0);
+
+    //    // 카메라를 더욱 더 부드럽게 움직이게 해줌(비선형 보간)
+    //    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.eulerAngles), 2f);
+    //}
+
 }

@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Arrow
+  - Target
+  - BlackZone
+  - BlueZone
+  - RedZone
+  - YellowZone
+  - SheetZone
   layers:
   - Default
   - TransparentFX

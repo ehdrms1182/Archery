@@ -13,16 +13,22 @@ public class LockOn : MonoBehaviour
     Breath breathTime;
     [SerializeField]
     PlayerMove playerMove;
-    private WaitForSecondsRealtime waitForSecondsRealtime = new WaitForSecondsRealtime(5f);
+    private WaitForSeconds reloadTime = new WaitForSeconds(5);
 
     public GameObject arrowPrefab;
     public Transform arrowPosition;
+    public Vector3 originPos;
+    RaycastHit hit;
 
     public bool isLock = false;
 
+    private void Start()
+    {
+        originPos = Vector3.zero;
+        currentArrowCount = maxArrowCount;
+    }
     private void FixedUpdate()
     {
-        RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
@@ -63,21 +69,29 @@ public class LockOn : MonoBehaviour
         //gameObject.SetActive(true);
         yield return null;
     }
-
-
     void Shot()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire1") && currentArrowCount > 0)
         {
             Debug.Log("화살 발사");
             StartCoroutine(ShotArrow());
         }
     }
+    public float range; 
+    public int maxArrowCount = 3;
+    public int currentArrowCount;
+    public float waitTime = 5f;
     IEnumerator ShotArrow()
     {
-        Vector3 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - arrowPosition.position);
-        Instantiate(arrowPrefab, transform.position, transform.rotation);
-        arrowPrefab.transform.Translate(dir.normalized * 4f * Time.deltaTime);
-        yield return waitForSecondsRealtime;
+        Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - arrowPosition.transform.position;
+        if (waitTime==0f)
+        {
+            GameObject arrow = Instantiate(arrowPrefab);//, Quaternion.Euler(dir));
+            //arrowPrefab.transform.Translate(Vector3.forward * 2f);
+            arrowPosition.transform.position = arrow.transform.position;
+            arrow.transform.Translate(dir);
+            currentArrowCount--;
+            yield return reloadTime;
+        }
     }
 }
