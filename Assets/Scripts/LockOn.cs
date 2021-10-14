@@ -13,7 +13,8 @@ public class LockOn : MonoBehaviour
     Breath breathTime;
     [SerializeField]
     PlayerMove playerMove;
-    private WaitForSeconds reloadTime = new WaitForSeconds(5);
+
+    private float reloadTime = 5;
 
     public GameObject arrowPrefab;
     public Transform arrowPosition;
@@ -64,34 +65,33 @@ public class LockOn : MonoBehaviour
         Debug.Log("Aiming");
 
         //조준선 표시 기능
-        Shot();
+        ShotArrow(reloadTime); //코루틴 진입 에러
         //GameObject gameObject;
         //gameObject.SetActive(true);
         yield return null;
     }
-    void Shot()
-    {
-        if(Input.GetButtonDown("Fire1") && currentArrowCount > 0)
-        {
-            Debug.Log("화살 발사");
-            StartCoroutine(ShotArrow());
-        }
-    }
     public float range; 
     public int maxArrowCount = 3;
     public int currentArrowCount;
-    public float waitTime = 5f;
-    IEnumerator ShotArrow()
+    IEnumerator ShotArrow(float waitTime)
     {
         Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - arrowPosition.transform.position;
-        if (waitTime==0f)
+        Debug.Log("Ready");
+        while(waitTime > 0.0f)
         {
+            Debug.Log($"남은 시간 : {waitTime}");
+            waitTime -= Time.fixedDeltaTime;
+        }
+
+        if (Input.GetButtonDown("Fire1") && currentArrowCount > 0 && waitTime == 0.0f)//남은 시간 비교
+        {
+            Debug.Log("발사");
             GameObject arrow = Instantiate(arrowPrefab);//, Quaternion.Euler(dir));
             //arrowPrefab.transform.Translate(Vector3.forward * 2f);
-            arrowPosition.transform.position = arrow.transform.position;
-            arrow.transform.Translate(dir);
+            arrow.transform.position = arrowPosition.transform.position;
+            arrow.transform.Translate(dir+Vector3.forward);
             currentArrowCount--;
-            yield return reloadTime;
+            yield return reloadTime = 3;
         }
     }
 }

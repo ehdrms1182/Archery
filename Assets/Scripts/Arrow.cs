@@ -175,6 +175,13 @@
 //        }
 //    }
 
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    //Destroy(collision.gameObject);
+    //    //Destroy(gameObject);
+    //    Debug.Log($"{collision.gameObject}");
+    //    Debug.Log(gameObject);
+    //}
 
 //    // 정조준 시도
 //    private void TryFineSight()

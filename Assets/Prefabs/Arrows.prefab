@@ -201,7 +201,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6921408249081013319}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 6921408250382104640}
   - component: {fileID: 6921408250381007488}
   m_Layer: 0
-  m_Name: arrowhead (1)
+  m_Name: arrowhead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
